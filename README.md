@@ -1,4 +1,4 @@
-# MIDI SWITCH — Arduino Nano / Line 6 M5
+# Line 6 M5 Stompbox Modeler — Arduino MidiSwitch
 
 Dwa footswitche, dwucyfrowy ekran LED i wyjście MIDI DIN. Uporządkowana wersja projektu Pawła z lat 2017–2018. Zdjęcia dokumentują oryginalne, działające urządzenie; nie są dowodem testu nowego oprogramowania.
 
@@ -32,7 +32,7 @@ Ekran pokazuje numer ostatniego presetu **wysłanego przez switch**. Urządzenie
 
 ## Wgranie
 
-1. Otwórz `MIDI_SWITCH.ino` z folderu `MIDI_SWITCH` w Arduino IDE.
+1. Po pobraniu projektu z GitHub nazwij jego katalog `MIDI_SWITCH` (Arduino wymaga zgodności nazwy folderu i szkicu). Otwórz `MIDI_SWITCH.ino` w Arduino IDE.
 2. Wybierz klasyczne **Arduino Nano / ATmega328P / 16 MHz**, pakiet **Arduino AVR Boards**. To nie jest szkic dla Nano Every, ESP32 ani Nano R4.
 3. Dla starego klona Nano zwykle potrzebna jest opcja **ATmega328P (Old Bootloader)**. Jeżeli płytka ma nowszy bootloader, wybierz **ATmega328P**.
 4. Wybierz port USB i wgraj szkic. Podczas wgrywania odłącz kabel MIDI od M5, aby dane programatora nie trafiały do efektu.
@@ -47,7 +47,7 @@ Kod kompilowano dla Arduino AVR Boards 1.8.8: 3398 B Flash i 240 B RAM. Symulacj
 
 ![Switch z Line 6 M5](docs/photos/IMG_20171223_160323967.jpg)
 
-Trzy zdjęcia przekazane przez autora zostały dołączone bez zmian. W repozytorium są lokalne commity. Publikacja na GitHub jest osobnym, następnym etapem. Nie nadano automatycznie licencji open source starym materiałom ani fotografiom.
+Trzy zdjęcia przekazane przez autora zostały dołączone bez zmian. Historia Git oddziela archiwum i fotografie, porządkowanie firmware, dokumentację i testy oraz angielską wersję schematu. Nie nadano automatycznie licencji open source starym materiałom ani fotografiom.
 
 ## Źródła techniczne
 
