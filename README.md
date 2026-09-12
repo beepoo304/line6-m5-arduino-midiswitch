@@ -1,57 +1,77 @@
 # Line 6 M5 Stompbox Modeler — Arduino MidiSwitch
 
-Dwa footswitche, dwucyfrowy ekran LED i wyjście MIDI DIN. Uporządkowana wersja projektu Pawła z lat 2017–2018. Zdjęcia dokumentują oryginalne, działające urządzenie; nie są dowodem testu nowego oprogramowania.
+A compact Arduino Nano MIDI foot controller for the **Line 6 M5 Stompbox Modeler**: two footswitches, a two-digit LED display and one MIDI OUT connection.
 
-![Oryginalny MIDI Switch](docs/photos/IMG_20171223_160315409.jpg)
+Originally built by Paweł in 2017–2018. Several units were built and sold, with positive feedback from their owners. This repository preserves the original build photographs and sketches alongside cleaned-up firmware, an annotated English wiring diagram and simulation tests.
 
-## Projekt
+![Original Arduino MidiSwitch displaying preset 19](docs/photos/IMG_20171223_160315409.jpg)
 
-- [Kod Arduino](MIDI_SWITCH.ino) — bez dodatkowych bibliotek.
-- [Schemat połączeń PDF](hardware/schemat.pdf), [PNG](hardware/schemat.png), [edytowalny SVG](hardware/schemat.svg).
-- [Połączenia, części i uruchomienie](hardware/POLACZENIA.md).
-- [Analiza starych wersji i lista poprawek](docs/ANALIZA.md).
-- [Wyniki i powtarzanie testów](tests/README.md).
-- [Archiwalny kod](archive/READY_CODE_original.ino.txt).
+## Features
 
-![Schemat](hardware/schemat.png)
+- Select M5 presets **01–24** using UP and DOWN footswitches.
+- Wrap from preset 24 to 01 and from 01 to 24.
+- Hold either switch to scroll through presets.
+- Press both switches together to bypass the effect.
+- Select another preset to enable the effect again.
+- Drive a common-anode LED display directly from the Nano.
+- Build the firmware without external Arduino libraries.
 
-## Obsługa
+The display shows the last preset **sent by this controller**. This is a MIDI OUT-only design; changes made directly on the M5 are not received. Preset numbers 01–24 are separate from MIDI channel numbers 1–16.
 
-| Czynność | Wynik |
+## Project files
+
+- [Arduino firmware](MIDI_SWITCH.ino)
+- [English wiring diagram — PDF](hardware/schemat.pdf), [PNG](hardware/schemat.png), [editable SVG](hardware/schemat.svg)
+- [Wiring, parts list and hardware setup](hardware/POLACZENIA.md)
+- [Original project analysis and firmware changes](docs/ANALIZA.md)
+- [Test results and reproduction instructions](tests/README.md)
+- [Archived original sketch](archive/READY_CODE_original.ino.txt)
+
+![Annotated English wiring diagram](hardware/schemat.png)
+
+## Controls
+
+| Action | Result |
 |---|---|
-| Włączenie zasilania | Ekran 01; po około sekundzie PC 0 i włączenie efektu |
-| UP, pin D12 | Następny preset; po 24 wraca 01 |
-| DOWN, pin D11 | Poprzedni preset; przed 01 przechodzi do 24 |
-| Przytrzymanie | Pierwsze powtórzenie 600 ms po zmianie, kolejne co 250 ms |
-| Oba przyciski razem | Bypass, bez wyboru innego presetu; numer miga |
-| Następny pojedynczy wybór | Zmiana presetu i ponowne włączenie efektu |
+| Power on | Display shows 01; after about one second, send PC 0 and enable the effect |
+| UP — D12 | Next preset; wrap from 24 to 01 |
+| DOWN — D11 | Previous preset; wrap from 01 to 24 |
+| Hold either switch | First repeat 600 ms after the initial change, then every 250 ms |
+| Press both together | Bypass without changing the preset; the displayed number flashes |
+| Select a preset after bypass | Change the preset and enable the effect |
 
-Obsługa obu przycisków ma okno 80 ms od rozpoznania pierwszego wciśnięcia. Krótkie naciśnięcie wykonuje się po zwolnieniu albo upływie tego okna. Eliminacja drgań styków trwa 25 ms. Jeśli drugi przycisk zostanie naciśnięty już po wykonaniu pojedynczej zmiany, sterownik czeka na zwolnienie obu i nie uruchamia wtedy bypassu. Przyciski trzymane podczas startu trzeba najpierw zwolnić.
+Each switch is debounced for 25 ms. An 80 ms window after the first debounced press allows both switches to be recognized together. A short tap takes effect on debounced release or when that window expires. If the second switch is pressed after a single-switch action has already completed, the controller waits for both to be released without triggering bypass. Switches held during startup must be released before use.
 
-Ekran pokazuje numer ostatniego presetu **wysłanego przez switch**. Urządzenie ma tylko MIDI OUT, więc nie odbiera zmian z M5. Numer presetu 01–24 jest czymś innym niż kanał transmisji MIDI 1–16.
+## Upload the firmware
 
-## Wgranie
+1. After downloading or cloning the repository, name its folder `MIDI_SWITCH` so it matches `MIDI_SWITCH.ino`. Open that sketch in Arduino IDE.
+2. Select the classic **Arduino Nano / ATmega328P / 16 MHz**, using **Arduino AVR Boards**. The sketch targets the classic AVR Nano, not Nano Every, ESP32 or Nano R4.
+3. Older Nano clones commonly need **ATmega328P (Old Bootloader)**. Select **ATmega328P** if your board uses the newer bootloader.
+4. Select the USB port and upload. Disconnect the MIDI cable from the M5 during upload so programmer traffic does not reach the pedal.
+5. Set the M5 MIDI channel to **CH1**, matching the default `MIDI_CHANNEL = 1` in the sketch.
+6. Connect **controller MIDI OUT → M5 MIDI IN**, then follow the [hardware checks](hardware/POLACZENIA.md#hardware-checks).
 
-1. Po pobraniu projektu z GitHub nazwij jego katalog `MIDI_SWITCH` (Arduino wymaga zgodności nazwy folderu i szkicu). Otwórz `MIDI_SWITCH.ino` w Arduino IDE.
-2. Wybierz klasyczne **Arduino Nano / ATmega328P / 16 MHz**, pakiet **Arduino AVR Boards**. To nie jest szkic dla Nano Every, ESP32 ani Nano R4.
-3. Dla starego klona Nano zwykle potrzebna jest opcja **ATmega328P (Old Bootloader)**. Jeżeli płytka ma nowszy bootloader, wybierz **ATmega328P**.
-4. Wybierz port USB i wgraj szkic. Podczas wgrywania odłącz kabel MIDI od M5, aby dane programatora nie trafiały do efektu.
-5. W ustawieniach M5 ustaw kanał MIDI **CH1**. Domyślna stała `MIDI_CHANNEL` w kodzie wynosi 1.
-6. Połącz **MIDI OUT switcha → MIDI IN M5** i wykonaj próbę opisaną w instrukcji połączeń.
+## Verification status
 
-Kod kompilowano dla Arduino AVR Boards 1.8.8: 3398 B Flash i 240 B RAM. Symulacja skompilowanego kodu: 45 sprawdzeń zakończonych powodzeniem. Nowy kod i schemat wymagają jeszcze próby na fizycznym egzemplarzu.
+The firmware compiled with Arduino AVR Boards 1.8.8, using **3398 bytes of Flash and 240 bytes of RAM**. The compiled AVR program passed **45 simulation checks**.
 
-## Fotografie oryginału
+The updated firmware and wiring diagram still need verification on a physical unit. The photographs show the original working hardware, not a hardware test of this firmware revision. Existing resistor values and the exact display pinout must be checked against the actual unit; the archived materials contain conflicting display package information.
 
-![Złącza i obudowa](docs/photos/IMG_20171223_162222044.jpg)
+## Original build photographs
 
-![Switch z Line 6 M5](docs/photos/IMG_20171223_160323967.jpg)
+![Original enclosure, power socket and MIDI OUT connector](docs/photos/IMG_20171223_162222044.jpg)
 
-Trzy zdjęcia przekazane przez autora zostały dołączone bez zmian. Historia Git oddziela archiwum i fotografie, porządkowanie firmware, dokumentację i testy oraz angielską wersję schematu. Nie nadano automatycznie licencji open source starym materiałom ani fotografiom.
+![Arduino MidiSwitch connected to a Line 6 M5](docs/photos/IMG_20171223_160323967.jpg)
 
-## Źródła techniczne
+All three photographs supplied by the builder are included unchanged. Git history separates the original archive and photos, firmware cleanup, documentation and tests, and English schematic labels.
 
-- [Line 6 M5 Pilot's Handbook, sekcja MIDI Control](https://line6.com/data/6/0a060b316ac34f0593fa7e002/application/pdf/M5%20Pilot): PC 0–23, CC11 0–63 bypass / 64–127 on.
-- [Arduino Nano — pinout](https://content.arduino.cc/assets/Pinout-NANO_latest.pdf): funkcje pinów i prądy I/O.
-- [MIDI Association — specyfikacja DIN](https://midi.org/5-pin-din-electrical-specs).
-- Archiwalny schemat użytkownika i lokalna karta `LD-D056Uxx-11.pdf`; szczegóły zgodności w `hardware/POLACZENIA.md`.
+## Archive and licensing
+
+The original sketches are preserved in their original language. No open-source license has been assigned to the archived material or photographs.
+
+## Technical references
+
+- [Line 6 M5 Pilot's Handbook — MIDI Control](https://line6.com/data/6/0a060b316ac34f0593fa7e002/application/pdf/M5%20Pilot): PC 0–23; CC11 values 0–63 for bypass and 64–127 for on.
+- [Arduino Nano pinout](https://content.arduino.cc/assets/Pinout-NANO_latest.pdf): pin functions and I/O current limits.
+- [MIDI Association — DIN electrical specifications](https://midi.org/5-pin-din-electrical-specs).
+- The builder's archived Nano diagram and local `LD-D056Uxx-11.pdf` display datasheet; compatibility notes are included in the [wiring guide](hardware/POLACZENIA.md).

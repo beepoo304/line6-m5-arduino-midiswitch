@@ -1,25 +1,25 @@
-# Połączenia MIDI SWITCH
+# MIDI SWITCH wiring and setup
 
-Schemat zachowuje przypisanie D2–D12 z pliku `READY CODE FOR LINE6M5 UP_DOWN .ino` i starego schematu Nano. Nie dodaje wejścia MIDI ani nowych przycisków. Jest schematem funkcjonalnych połączeń, a nie rysunkiem mechanicznego rozmieszczenia nóżek.
+The diagram preserves D2–D12 assignments from the original `READY CODE FOR LINE6M5 UP_DOWN .ino` sketch and Nano wiring diagram. It shows electrical connections, not physical lead positions. The design has two footswitches and MIDI OUT only.
 
-## Lista części
+## Parts list
 
-| Element | Liczba | Uwagi |
+| Part | Quantity | Notes |
 |---|---:|---|
-| Klasyczne Arduino Nano ATmega328P, 5 V / 16 MHz | 1 | Dotychczasowa płytka |
-| Dwucyfrowy wyświetlacz 7-segmentowy, wspólna anoda | 1 | Lub dwie cyfry z połączonymi odpowiadającymi segmentami |
-| Footswitch chwilowy NO | 2 | Zwierany tylko podczas naciśnięcia; nie zatrzaskowy |
-| Rezystor 1,5 kΩ, 0,25 W | 7 | R1–R7: proponowany zachowawczy dobór dla bezpośrednich anod |
-| Rezystor 220 Ω, 0,25 W | 2 | R8 i R9: MIDI OUT przy 5 V |
-| Gniazdo DIN 5-pin / 180° | 1 | MIDI OUT |
-| Gniazdo DC, obudowa, przewody, płytka montażowa | wg montażu | Jak w oryginalnym urządzeniu |
-| Zasilacz 9 V DC | 1 | Do VIN; na stole można użyć USB |
+| Classic Arduino Nano ATmega328P, 5 V / 16 MHz | 1 | Original board type |
+| Two-digit common-anode 7-segment LED display | 1 | Alternatively, two digits with matching segments connected together |
+| Momentary normally-open footswitch | 2 | Contacts close only while pressed; not a latching switch |
+| 1.5 kΩ, 0.25 W resistor | 7 | R1–R7: conservative proposed values for direct anode drive |
+| 220 Ω, 0.25 W resistor | 2 | R8 and R9: 5 V MIDI OUT |
+| 5-pin DIN / 180° socket | 1 | MIDI OUT |
+| DC socket, enclosure, wire and mounting board | As needed | As in the original build |
+| 9 V DC supply | 1 | Connect to VIN; USB can be used on the bench |
 
-Wartości rezystorów w istniejącym egzemplarzu nie zostały zmierzone. Nie traktuj wartości 1,5 kΩ jako odczytu ze zdjęć ani polecenia wymiany elementów w sprawnym urządzeniu.
+Existing resistor values have not been measured. The proposed 1.5 kΩ values were not identified from the photographs and are not an instruction to replace components in a working unit.
 
-## Wyświetlacz
+## LED display
 
-| Nano | Przez | Funkcja LED | Nóżka wyłącznie według lokalnej karty LD-D056XXX-C |
+| Nano | Through | LED function | Lead number only for the archived LD-D056XXX-C datasheet |
 |---|---|---|---:|
 | D2 | R1 | A | 10 |
 | D3 | R2 | B | 9 |
@@ -28,56 +28,58 @@ Wartości rezystorów w istniejącym egzemplarzu nie zostały zmierzone. Nie tra
 | D6 | R5 | E | 3 |
 | D7 | R6 | F | 6 |
 | D8 | R7 | G | 5 |
-| D9 | bezpośrednio | CA1, lewa cyfra | 8 |
-| D10 | bezpośrednio | CA2, prawa cyfra | 7 |
-| nie podłączaj | — | DP, kropka | 2 |
+| D9 | Direct | CA1, left digit | 8 |
+| D10 | Direct | CA2, right digit | 7 |
+| Unconnected | — | DP, decimal point | 2 |
 
-**Numery fizycznych nóżek są warunkowe.** Karta w archiwum przedstawia obudowę 10-nóżkową. Komentarz w starym kodzie wspomina po dziewięć nóżek na górze i dole. To niespójność materiałów; zdjęcia gotowej obudowy nie rozstrzygają typu wlutowanego wyświetlacza. Dla innego modelu zachowaj funkcje A–G, CA1 i CA2, ale użyj jego własnego pinoutu. Nie podłączaj według numerów z tabeli bez sprawdzenia modelu.
+**Physical lead numbers depend on the display model.** The archived datasheet shows a 10-lead package, while an original code comment mentions nine leads at the top and nine at the bottom. Photographs of the finished enclosure do not resolve this discrepancy. For another display model, retain functions A–G, CA1 and CA2 but use its own datasheet. Verify the model before using the lead numbers above.
 
-Segmenty oznacza się: A górny, B prawy górny, C prawy dolny, D dolny, E lewy dolny, F lewy górny, G środkowy. W wersji ze wspólną anodą aktywna cyfra otrzymuje HIGH, a świecące segmenty LOW. Kod gasi obie cyfry przed zmianą segmentów.
+Segment positions: A top, B upper right, C lower right, D bottom, E lower left, F upper left, G middle. A common-anode digit is enabled with HIGH; an illuminated segment is driven LOW. The firmware disables both digits before changing segment outputs.
 
-### Rezystory i jasność
+### Resistors and brightness
 
-Przy bezpośrednim sterowaniu wspólna anoda przenosi sumę prądów wszystkich świecących segmentów danej cyfry. Dlatego mały rezystor dobierany tylko do jednego segmentu może nadmiernie obciążyć D9/D10. Dokumentacja Nano podaje limit 20 mA na pin I/O.
+With direct drive, each common-anode pin carries the combined current of all illuminated segments in that digit. A small resistor selected for just one segment can therefore overload D9/D10. The Nano documentation specifies a 20 mA limit per I/O pin.
 
-Proponowane 1,5 kΩ daje przy 5 V i spadku LED 1,9 V około 2,1 mA na segment, czyli około 14,5 mA dla siedmiu segmentów w chwili świecenia cyfry. Średni prąd jest mniejszy przez multipleksowanie. Dla zielonych LED o wyższym spadku prąd i jasność będą mniejsze. To obliczenie projektowe, nie pomiar Twojego urządzenia. Jeżeli istniejący układ ma tranzystory albo inne sterowanie cyframi, wymaga osobnego sprawdzenia; przedstawiony schemat zakłada anody bez tranzystorów, jak w starym opisie pinów.
+At 5 V with a 1.9 V LED drop, 1.5 kΩ gives about 2.1 mA per segment, or about 14.5 mA for seven illuminated segments while the digit is active. Multiplexing reduces average current. Green LEDs with a higher forward drop will draw less current and may be dimmer. These are design calculations, not measurements of the original unit.
 
-## Footswitche
+If the existing build includes transistors or another digit-driving circuit, review that circuit separately. This diagram assumes direct anode connections, as described by the original pin assignments.
 
-- D11 → pierwszy styk DOWN; drugi styk → GND.
-- D12 → pierwszy styk UP; drugi styk → GND.
-- Dla przełącznika z trzema wyprowadzeniami użyj COM i NO, potwierdzonych miernikiem.
-- `INPUT_PULLUP` utrzymuje spoczynkowo HIGH. Wciśnięcie daje LOW. Nie łącz przycisków z 9 V.
+## Footswitches
+
+- D11 → one DOWN contact; the other contact → GND.
+- D12 → one UP contact; the other contact → GND.
+- For a three-terminal switch, identify COM and NO with a multimeter.
+- `INPUT_PULLUP` holds each input HIGH at rest. Pressing the switch pulls it LOW. Do not connect the switches to 9 V.
 
 ## MIDI OUT
 
-| Nano | Element | Styk DIN |
+| Nano | Connection | DIN contact |
 |---|---|---|
 | 5 V | R8 = 220 Ω | 4 |
 | D1 / TX | R9 = 220 Ω | 5 |
-| GND | przewód | 2 |
-| brak | nie podłączaj | 1 i 3 |
+| GND | Wire | 2 |
+| None | Leave unconnected | 1 and 3 |
 
-To prosty, niebuforowany nadajnik UART 5 V odpowiadający koncepcji oryginału. Nie jest to deklaracja certyfikacji zgodności elektrycznej produktu. Numery DIN odnoszą się do oznaczeń styków: widok od strony lutowania jest lustrzanym odbiciem widoku od strony wtyku. Rysunek celowo nie zgaduje układu wyprowadzeń konkretnego gniazda panelowego.
+This is a simple unbuffered 5 V UART output following the original design concept, not a declaration of product electrical certification. Use the socket's contact numbers: the solder-side view is mirrored relative to the mating face. The drawing does not specify the physical terminal layout of a particular panel socket.
 
-Przewód MIDI: **MIDI OUT switcha → MIDI IN M5**. M5 MIDI OUT pozostaje wolne. Parametry danych: 31250 baud, 8 bitów, bez parzystości, 1 bit stopu. Nie używaj `Serial.print()` do debugowania, bo ten sam port przenosi MIDI.
+Connect **controller MIDI OUT → M5 MIDI IN**. Leave M5 MIDI OUT unused. Data format: 31250 baud, 8 data bits, no parity, 1 stop bit. Do not use `Serial.print()` for debugging because the same port carries MIDI.
 
-## Zasilanie
+## Power
 
-- Dodatni biegun 9 V DC → VIN Nano.
-- Ujemny biegun → GND Nano.
-- 9 V nie wolno podać na pin 5 V.
-- Na stole możesz zasilać Nano przez USB. Do pierwszego uruchomienia wybierz jedno źródło zasilania.
-- Polaryzacja centrum i tulei gniazda DC zależy od zastosowanego zasilacza i połączeń; oznacz ją dopiero po sprawdzeniu miernikiem. Fotografia nie wystarcza do jej ustalenia.
+- Positive 9 V DC → Nano VIN.
+- DC negative → Nano GND.
+- Never apply 9 V to the 5 V pin.
+- USB can power the Nano on the bench. Use one power source for initial testing.
+- The DC socket's center/sleeve polarity depends on the supply and wiring. Verify it with a multimeter before labeling it; photographs alone do not establish polarity.
 
-## Próba na urządzeniu
+## Hardware checks
 
-1. Bez zasilania porównaj piny i sprawdź brak zwarcia 5 V–GND oraz VIN–GND.
-2. Odłącz M5 na czas wgrywania szkicu. Po uruchomieniu sprawdź wyświetlenie 01.
-3. Włącz M5 przed restartem switcha, ustaw CH1 i podłącz MIDI. Po starcie switch powinien wybrać 01 i włączyć efekt.
-4. Sprawdź 01 → 02 → 03, DOWN oraz przejścia 24 ↔ 01.
-5. Sprawdź krótkie naciśnięcia, przytrzymanie i zwolnienie.
-6. Naciśnij oba przyciski razem: preset nie powinien się zmienić, M5 powinien wejść w bypass. Numer miga. Po zwolnieniu obu wybierz kolejny preset: efekt się włącza.
-7. Sprawdź czytelność cyfr 08, 18 i 24, brak zamiany cyfr oraz jasność. W razie zamiany stron porównaj D9/D10 z rzeczywistymi anodami.
+1. With power disconnected, verify the pin assignments and check for shorts between 5 V–GND and VIN–GND.
+2. Disconnect the M5 while uploading. Confirm that the display shows 01 at startup.
+3. Power the M5 before restarting the controller, set CH1 and connect MIDI. The controller should select preset 01 and enable the effect after startup.
+4. Check 01 → 02 → 03, DOWN, and wrapping between 24 and 01.
+5. Check short taps, hold-to-scroll and release behavior.
+6. Press both switches together: the preset should stay unchanged, the M5 should bypass and the displayed number should flash. Release both and select another preset: the effect should turn on.
+7. Check digits 08, 18 and 24 for legibility, correct digit order and brightness. If the digits are reversed, compare D9/D10 with the actual common-anode connections.
 
-Wynik tej próby pozostaje do wykonania na fizycznym urządzeniu; symulator nie sprawdza połączeń, prądu LED ani zachowania samego M5.
+These checks still need to be performed on physical hardware. Simulation does not verify wiring, LED current or the M5 itself.

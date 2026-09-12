@@ -1,42 +1,42 @@
-# Analiza archiwum i uporządkowanie kodu
+# Original project analysis and firmware cleanup
 
-## Wybrana baza
+## Selected baseline
 
-`READY CODE FOR LINE6M5 UP_DOWN .ino` jest najlepiej dopasowaną bazą: dwa przyciski D11/D12, segmenty A–G na D2–D8, anody D9/D10 i 24 presety M5. Odpowiada staremu schematowi Nano oraz opisowi użytkownika. `NANO SWITCH.txt` ma tę samą logikę i różnice w białych znakach. Nie można z tego ustalić, który plik faktycznie wgrano do sprzedanych egzemplarzy.
+`READY CODE FOR LINE6M5 UP_DOWN .ino` is the closest match to this build: switches on D11/D12, segments A–G on D2–D8, common anodes on D9/D10 and 24 M5 presets. It matches the archived Nano diagram and the builder's description. `NANO SWITCH.txt` contains the same logic with whitespace differences. The archive does not establish which exact file was flashed to the sold units.
 
-| Materiał | Ocena |
+| Archived material | Assessment |
 |---|---|
-| READY CODE / NANO SWITCH | Właściwa rodzina kodu dla tego projektu |
-| Wydruk Pastebin z 06.11.2017 | Podobny kod, ale odwrotna kolejność segmentów, przyciski 9/10 i anody 12/13; nie zgadza się z późniejszym schematem Nano |
-| EDUARDO_INZUNZA_SWITCH.ino | Inna konstrukcja, 5 przycisków i LED; niedostępny case 5, błędne nawiasy w digitalRead |
-| WORSHKY MIDI.txt | Inna konstrukcja z bankami, czterema wyborami i dodatkowymi LED |
-| tap tempo.txt | Niekompletna mieszanka API TM1637 i Adafruit; to nie firmware tego switcha |
-| DISPLAY SHIELD 4 | Przykład i biblioteki czterocyfrowego TM1637; nie odpowiadają dwucyfrowemu LED podłączonemu bezpośrednio |
-| Zdjęcia z 23.12.2017 | Dokumentacja zbudowanego urządzenia, w tym praca obok M5 |
+| READY CODE / NANO SWITCH | Correct firmware family for this project |
+| Pastebin printout dated 2017-11-06 | Similar logic, but reversed segment order, switches 9/10 and anodes 12/13; does not match the later Nano diagram |
+| EDUARDO_INZUNZA_SWITCH.ino | Different five-switch/LED design; unreachable case 5 and incorrect parentheses in digitalRead |
+| WORSHKY MIDI.txt | Different bank-based design with four preset selectors and extra LEDs |
+| tap tempo.txt | Incomplete mixture of TM1637 and Adafruit APIs; not this controller's firmware |
+| DISPLAY SHIELD 4 | Four-digit TM1637 example and libraries; does not match the directly connected two-digit display |
+| Photographs dated 2017-12-23 | Original completed hardware, including operation alongside an M5 |
 
-## Co poprawiono
+## Changes
 
-| Wcześniej | Teraz | Skutek |
+| Original implementation | Updated implementation | Effect |
 |---|---|---|
-| Odczyt poziomu + delay(250) | Osobny stabilizowany stan każdego przycisku, 25 ms | Drgania nie powodują nieplanowanych wyborów |
-| Dwa niezależne if dla UP i DOWN | Jedna obsługa gestu, okno 80 ms | Rozpoznanie wspólnego naciśnięcia przed zmianą presetu |
-| while przy obu przyciskach | Jednorazowy bypass i oczekiwanie na zwolnienie | Brak lawiny CC oraz blokowania programu |
-| Samotny Serial.write(contOff) | Wyłącznie kompletne PC i CC | Usunięcie osieroconego bajtu danych z transmisji |
-| fxOn przed i po PC w UP | Jeden PC, następnie jeden CC11 on | Mniej zbędnych komunikatów |
-| Nieużywana tablica presets[16] | Stała PRESET_COUNT = 24 | Jedno źródło zakresu i brak martwej tablicy |
-| Rozproszone liczby i słabo dopasowane komentarze | Stałe pinów, kanału i czasów; osobne funkcje | Łatwiejsze utrzymanie |
-| Biblioteka SevenSeg, której nie było w archiwum | Własny krótki sterownik Timer2 | Szkic kompiluje się bez instalowania starej biblioteki |
+| Level reading plus delay(250) | Separate 25 ms debounced state per switch | Rejects contact chatter |
+| Independent UP and DOWN if statements | One gesture handler with an 80 ms window | Recognizes both switches before changing presets |
+| while loop for both switches | One bypass command, then wait for release | Prevents repeated CC traffic and a blocked main loop |
+| Standalone Serial.write(contOff) | Complete PC and CC messages only | Removes an orphan data byte |
+| fxOn before and after UP's PC | One PC followed by one CC11 on | Removes duplicate messages |
+| Unused presets[16] array | PRESET_COUNT = 24 | Centralizes the range and removes dead data |
+| Scattered values and outdated comments | Named pin, channel and timing constants | Easier maintenance |
+| SevenSeg library missing from the archive | Small standalone Timer2 display driver | No external Arduino library installation |
 
-## Zachowana funkcjonalność i widoczne różnice
+## Preserved behavior and visible differences
 
-Zachowano piny, kierunki, zakres 24 presetów, zapętlenie, automatyczne przewijanie, start od presetu 01, włączenie efektu po wyborze oraz wspólny bypass. MIDI nadal pracuje na kanale 1 z prędkością 31250 baud. M5 przyjmuje 0–23 dla presetów 01–24 i CC11 z wartościami 0–63 dla bypassu, 64–127 dla on. Wartość 70 w oryginale była prawidłowa; 127 jest tutaj czytelną wartością „on”, nie naprawą błędnego zakresu.
+Pin assignments, directions, 24-preset range, wrapping, hold-to-scroll, startup at preset 01, effect-on after preset selection and the two-switch bypass function are preserved. MIDI defaults to channel 1 at 31250 baud. M5 uses PC 0–23 for presets 01–24, and CC11 values 0–63 for bypass or 64–127 for on. The original on value of 70 was valid; using 127 is a clearer full-scale on value, not a correction of an invalid range.
 
-Widoczne różnice: ekran pokazuje 01–09 z zerem wiodącym; na starcie 01 zamiast chwilowego „on”; w bypassie numer miga. Pierwsza zmiana po wciśnięciu ma opóźnienie do około 105 ms (25 + 80 ms), umożliwiające rozpoznanie obu przycisków. Powtarzanie zaczyna się po 600 ms od pierwszej zmiany zamiast natychmiast co około 275 ms. `AUTO_REPEAT = false` wyłącza przewijanie przy trzymaniu.
+Visible differences: presets 01–09 have a leading zero; startup shows 01 instead of a brief “on”; the number flashes during bypass. Initial selection takes up to about 105 ms (25 + 80 ms) to allow recognition of both switches. Auto-repeat starts 600 ms after the initial change, then repeats every 250 ms, replacing the original immediate repetition roughly every 275 ms. Set `AUTO_REPEAT = false` to disable hold-to-scroll.
 
-Timer2 odświeża każdą cyfrę 250 razy na sekundę. Timer0 pozostaje dla millis(). Kod nie używa delay ani blokującej pętli przycisków. Przed przestawieniem segmentów obie anody są wyłączane. Jednobajtowy numer ekranu jest pobierany na początek pełnej pary cyfr. Timer2 jest zarezerwowany: nie dodawaj tone() ani innej biblioteki używającej tego timera bez przebudowy obsługi ekranu.
+Timer2 refreshes each digit 250 times per second; Timer0 remains available for millis(). The firmware uses no delay() calls or blocking switch loops. Both anodes are disabled before segment changes. The single-byte display number is sampled at the start of each complete pair of digits. Timer2 is reserved: adding tone() or another Timer2 library requires revisiting the display driver.
 
-Nie dodano MIDI IN, tap tempo, banków ani zapisu do EEPROM. Odbiór zmian z M5 został wycofany zgodnie z końcową decyzją użytkownika. Przełączenie bezpośrednio na M5 nie aktualizuje wskazania switcha.
+The design has no MIDI IN, tap tempo, banks or EEPROM storage. Changes made directly on the M5 do not update the controller display.
 
-## Ograniczenia ustaleń
+## Limits of the analysis
 
-Nowy szkic sprawdzono kompilatorem AVR i w symulatorze, nie na oryginalnym sprzęcie. Wartości wlutowanych rezystorów, fizyczny pinout LED i polaryzacja gniazda DC wymagają sprawdzenia egzemplarza. Materiały zawierają rozbieżność 10/18 nóżek wyświetlacza; szczegóły w instrukcji połączeń. Źródła protokołu i parametrów Nano są podlinkowane w README.
+The revised firmware was compiled for AVR and simulated, but has not been tested on the original hardware. Installed resistor values, physical LED pinout and DC socket polarity need verification on a unit. The archive contains conflicting 10-lead/18-lead display information; see the wiring guide. Protocol and Nano references are linked from the main README.

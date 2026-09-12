@@ -117,5 +117,5 @@
 <text x="45" y="1100" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">* 1.5 kΩ: conservative values for direct anode drive from D9/D10. Verify display brightness on the actual unit.</text>
 <text x="45" y="1131" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">Check existing resistors before replacing them. This drawing shows electrical connections, not physical board pin locations.</text>
 <text x="45" y="1162" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">LED lead numbers depend on the display model. Use DIN contact numbers: the solder-side view is mirrored.</text>
-<text x="45" y="1196" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#5c6a79" font-weight="normal">Revision 2026-09-12 • MIDI OUT only • Detailed connection table and notes (Polish): hardware/POLACZENIA.md</text>
+<text x="45" y="1196" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#5c6a79" font-weight="normal">Revision 2026-09-12 • MIDI OUT only • Detailed connection table and notes: hardware/POLACZENIA.md</text>
 </svg>
