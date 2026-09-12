@@ -1,0 +1,8 @@
+* text=auto
+*.ino text eol=lf
+*.md text eol=lf
+*.cjs text eol=lf
+*.svg text eol=lf
+*.jpg binary
+*.png binary
+*.pdf binary

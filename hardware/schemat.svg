@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1220" viewBox="0 0 1600 1220">
+<rect width="1600" height="1220" fill="#f4f7fa"/>
+<text x="45" y="55" font-family="DejaVu Sans,Arial,sans-serif" font-size="34" fill="#233348" font-weight="bold">MIDI SWITCH</text>
+<text x="335" y="55" font-family="DejaVu Sans,Arial,sans-serif" font-size="26" fill="#233348" font-weight="normal">Arduino Nano → Line 6 M5</text>
+<text x="45" y="91" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" fill="#233348" font-weight="normal">Dwa footswitche • dwie cyfry • jedno wyjście MIDI OUT • przypisanie pinów zgodne ze starym projektem</text>
+<rect x="35" y="120" width="960" height="645" rx="12" fill="#fff" stroke="#cbd6e0" stroke-width="2"/>
+<rect x="1015" y="120" width="550" height="645" rx="12" fill="#fff" stroke="#cbd6e0" stroke-width="2"/>
+<text x="60" y="157" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" fill="#233348" font-weight="bold">1  WYŚWIETLACZ LED — WSPÓLNA ANODA</text>
+<rect x="70" y="190" width="175" height="510" rx="12" fill="#e4f1f7" stroke="#cbd6e0" stroke-width="2"/>
+<text x="90" y="225" font-family="DejaVu Sans,Arial,sans-serif" font-size="26" fill="#233348" font-weight="bold">NANO</text>
+<text x="90" y="250" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#233348" font-weight="normal">5 V / 16 MHz</text>
+<rect x="690" y="190" width="265" height="510" rx="12" fill="#edf8ef" stroke="#cbd6e0" stroke-width="2"/>
+<text x="715" y="225" font-family="DejaVu Sans,Arial,sans-serif" font-size="22" fill="#233348" font-weight="bold">WYŚWIETLACZ</text>
+<text x="715" y="252" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">2 × 7 segmentów</text>
+<text x="182" y="306" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="bold">D2</text>
+<path d="M245 300 L410 300" stroke="#216d97" stroke-width="3" fill="none"/>
+<rect x="410" y="291" width="65" height="18" fill="white" stroke="#216d97" stroke-width="2"/>
+<text x="408" y="282" font-family="DejaVu Sans,Arial,sans-serif" font-size="15" fill="#233348" font-weight="normal">R1</text>
+<path d="M475 300 L690 300" stroke="#216d97" stroke-width="3" fill="none"/>
+<text x="710" y="306" font-family="DejaVu Sans,Arial,sans-serif" font-size="22" fill="#233348" font-weight="bold">A</text>
+<text x="182" y="349" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="bold">D3</text>
+<path d="M245 343 L410 343" stroke="#216d97" stroke-width="3" fill="none"/>
+<rect x="410" y="334" width="65" height="18" fill="white" stroke="#216d97" stroke-width="2"/>
+<text x="408" y="325" font-family="DejaVu Sans,Arial,sans-serif" font-size="15" fill="#233348" font-weight="normal">R2</text>
+<path d="M475 343 L690 343" stroke="#216d97" stroke-width="3" fill="none"/>
+<text x="710" y="349" font-family="DejaVu Sans,Arial,sans-serif" font-size="22" fill="#233348" font-weight="bold">B</text>
+<text x="505" y="330" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">7 × 1,5 kΩ*</text>
+<text x="182" y="392" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="bold">D4</text>
+<path d="M245 386 L410 386" stroke="#216d97" stroke-width="3" fill="none"/>
+<rect x="410" y="377" width="65" height="18" fill="white" stroke="#216d97" stroke-width="2"/>
+<text x="408" y="368" font-family="DejaVu Sans,Arial,sans-serif" font-size="15" fill="#233348" font-weight="normal">R3</text>
+<path d="M475 386 L690 386" stroke="#216d97" stroke-width="3" fill="none"/>
+<text x="710" y="392" font-family="DejaVu Sans,Arial,sans-serif" font-size="22" fill="#233348" font-weight="bold">C</text>
+<text x="182" y="435" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="bold">D5</text>
+<path d="M245 429 L410 429" stroke="#216d97" stroke-width="3" fill="none"/>
+<rect x="410" y="420" width="65" height="18" fill="white" stroke="#216d97" stroke-width="2"/>
+<text x="408" y="411" font-family="DejaVu Sans,Arial,sans-serif" font-size="15" fill="#233348" font-weight="normal">R4</text>
+<path d="M475 429 L690 429" stroke="#216d97" stroke-width="3" fill="none"/>
+<text x="710" y="435" font-family="DejaVu Sans,Arial,sans-serif" font-size="22" fill="#233348" font-weight="bold">D</text>
+<text x="182" y="478" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="bold">D6</text>
+<path d="M245 472 L410 472" stroke="#216d97" stroke-width="3" fill="none"/>
+<rect x="410" y="463" width="65" height="18" fill="white" stroke="#216d97" stroke-width="2"/>
+<text x="408" y="454" font-family="DejaVu Sans,Arial,sans-serif" font-size="15" fill="#233348" font-weight="normal">R5</text>
+<path d="M475 472 L690 472" stroke="#216d97" stroke-width="3" fill="none"/>
+<text x="710" y="478" font-family="DejaVu Sans,Arial,sans-serif" font-size="22" fill="#233348" font-weight="bold">E</text>
+<text x="182" y="521" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="bold">D7</text>
+<path d="M245 515 L410 515" stroke="#216d97" stroke-width="3" fill="none"/>
+<rect x="410" y="506" width="65" height="18" fill="white" stroke="#216d97" stroke-width="2"/>
+<text x="408" y="497" font-family="DejaVu Sans,Arial,sans-serif" font-size="15" fill="#233348" font-weight="normal">R6</text>
+<path d="M475 515 L690 515" stroke="#216d97" stroke-width="3" fill="none"/>
+<text x="710" y="521" font-family="DejaVu Sans,Arial,sans-serif" font-size="22" fill="#233348" font-weight="bold">F</text>
+<text x="182" y="564" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="bold">D8</text>
+<path d="M245 558 L410 558" stroke="#216d97" stroke-width="3" fill="none"/>
+<rect x="410" y="549" width="65" height="18" fill="white" stroke="#216d97" stroke-width="2"/>
+<text x="408" y="540" font-family="DejaVu Sans,Arial,sans-serif" font-size="15" fill="#233348" font-weight="normal">R7</text>
+<path d="M475 558 L690 558" stroke="#216d97" stroke-width="3" fill="none"/>
+<text x="710" y="564" font-family="DejaVu Sans,Arial,sans-serif" font-size="22" fill="#233348" font-weight="bold">G</text>
+<text x="174" y="628" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="bold">D9</text>
+<path d="M245 622 L690 622" stroke="#885db3" stroke-width="3" fill="none"/>
+<text x="710" y="628" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">CA1 — lewa cyfra</text>
+<text x="174" y="671" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="bold">D10</text>
+<path d="M245 665 L690 665" stroke="#885db3" stroke-width="3" fill="none"/>
+<text x="710" y="671" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">CA2 — prawa cyfra</text>
+<text x="60" y="732" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">A–G: połącz wspólne segmenty obu cyfr. DP (kropka): nie podłączaj.</text>
+<text x="1040" y="157" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" fill="#233348" font-weight="bold">2  FOOTSWITCHE</text>
+<text x="1045" y="220" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" fill="#233348" font-weight="bold">DOWN / poprzedni</text>
+<text x="1045" y="257" font-family="DejaVu Sans,Arial,sans-serif" font-size="22" fill="#233348" font-weight="normal">D11</text>
+<path d="M1100 250 L1220 250" stroke="#216d97" stroke-width="3" fill="none"/>
+<circle cx="1220" cy="250" r="4" fill="#216d97"/>
+<path d="M1220 250 L1280 222" stroke="#216d97" stroke-width="3" fill="none"/>
+<circle cx="1295" cy="250" r="4" fill="#216d97"/>
+<path d="M1295 250 L1470 250" stroke="#216d97" stroke-width="3" fill="none"/>
+<text x="1478" y="257" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" fill="#233348" font-weight="normal">GND</text>
+<text x="1130" y="290" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" fill="#233348" font-weight="normal">Styk chwilowy NO, zwierany do GND</text>
+<text x="1045" y="360" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" fill="#233348" font-weight="bold">UP / następny</text>
+<text x="1045" y="397" font-family="DejaVu Sans,Arial,sans-serif" font-size="22" fill="#233348" font-weight="normal">D12</text>
+<path d="M1100 390 L1220 390" stroke="#216d97" stroke-width="3" fill="none"/>
+<circle cx="1220" cy="390" r="4" fill="#216d97"/>
+<path d="M1220 390 L1280 362" stroke="#216d97" stroke-width="3" fill="none"/>
+<circle cx="1295" cy="390" r="4" fill="#216d97"/>
+<path d="M1295 390 L1470 390" stroke="#216d97" stroke-width="3" fill="none"/>
+<text x="1478" y="397" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" fill="#233348" font-weight="normal">GND</text>
+<text x="1130" y="430" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" fill="#233348" font-weight="normal">Styk chwilowy NO, zwierany do GND</text>
+<text x="1040" y="495" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="normal">INPUT_PULLUP w kodzie.</text>
+<text x="1040" y="526" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">Nie potrzeba zewnętrznych rezystorów</text>
+<text x="1040" y="553" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">podciągających dla przycisków.</text>
+<text x="1040" y="613" font-family="DejaVu Sans,Arial,sans-serif" font-size="21" fill="#233348" font-weight="bold">Oba razem: bypass efektu.</text>
+<text x="1040" y="647" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">Następny wybór presetu włącza efekt.</text>
+<text x="1040" y="687" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">Przytrzymanie: przewijanie presetów.</text>
+<text x="1040" y="724" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="bold">Wyświetlanie: 01–24.</text>
+<rect x="35" y="785" width="960" height="275" rx="12" fill="#fff" stroke="#cbd6e0" stroke-width="2"/>
+<rect x="1015" y="785" width="550" height="275" rx="12" fill="#fff" stroke="#cbd6e0" stroke-width="2"/>
+<text x="60" y="824" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" fill="#233348" font-weight="bold">3  MIDI OUT — GNIAZDO DIN 5 / 180°</text>
+<text x="60" y="887" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="normal">Nano 5 V</text>
+<path d="M225 880 L415 880" stroke="#216d97" stroke-width="3" fill="none"/>
+<rect x="415" y="871" width="65" height="18" fill="white" stroke="#216d97" stroke-width="2"/>
+<text x="413" y="862" font-family="DejaVu Sans,Arial,sans-serif" font-size="15" fill="#233348" font-weight="normal">R8 · 220 Ω</text>
+<path d="M480 880 L730 880" stroke="#216d97" stroke-width="3" fill="none"/>
+<text x="750" y="887" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="bold">DIN pin 4</text>
+<text x="60" y="947" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="normal">Nano D1 / TX</text>
+<path d="M225 940 L415 940" stroke="#216d97" stroke-width="3" fill="none"/>
+<rect x="415" y="931" width="65" height="18" fill="white" stroke="#216d97" stroke-width="2"/>
+<text x="413" y="922" font-family="DejaVu Sans,Arial,sans-serif" font-size="15" fill="#233348" font-weight="normal">R9 · 220 Ω</text>
+<path d="M480 940 L730 940" stroke="#216d97" stroke-width="3" fill="none"/>
+<text x="750" y="947" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="bold">DIN pin 5</text>
+<text x="60" y="1007" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="normal">Nano GND</text>
+<path d="M225 1000 L415 1000" stroke="#216d97" stroke-width="3" fill="none"/>
+<path d="M415 1000 L730 1000" stroke="#216d97" stroke-width="3" fill="none"/>
+<text x="750" y="1007" font-family="DejaVu Sans,Arial,sans-serif" font-size="20" fill="#233348" font-weight="bold">DIN pin 2</text>
+<text x="60" y="1040" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#233348" font-weight="normal">Piny DIN 1 i 3: wolne. Kabel MIDI OUT switcha → MIDI IN w M5.</text>
+<text x="1040" y="824" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" fill="#233348" font-weight="bold">4  ZASILANIE NANO</text>
+<text x="1040" y="874" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" fill="#233348" font-weight="bold">+9 V DC → VIN</text>
+<text x="1040" y="912" font-family="DejaVu Sans,Arial,sans-serif" font-size="23" fill="#233348" font-weight="bold">Minus zasilania → GND</text>
+<text x="1040" y="952" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">Alternatywnie: zasilanie przez USB.</text>
+<text x="1040" y="987" font-family="DejaVu Sans,Arial,sans-serif" font-size="19" fill="#a23b35" font-weight="bold">9 V nie podłączaj do pinu 5 V.</text>
+<text x="1040" y="1023" font-family="DejaVu Sans,Arial,sans-serif" font-size="16" fill="#233348" font-weight="normal">Polaryzację gniazda DC sprawdź miernikiem.</text>
+<text x="45" y="1100" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">* 1,5 kΩ: zachowawczy dobór do bezpośredniego sterowania anod z D9/D10; jasność trzeba sprawdzić w egzemplarzu.</text>
+<text x="45" y="1131" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">Istniejące rezystory sprawdź przed zmianą. Rysunek określa sieci elektryczne, nie położenie nóżek na płytce.</text>
+<text x="45" y="1162" font-family="DejaVu Sans,Arial,sans-serif" font-size="18" fill="#233348" font-weight="normal">Numery fizycznych nóżek LED zależą od modelu. DIN: kieruj się numerami styków — widok lutowania jest lustrzany.</text>
+<text x="45" y="1196" font-family="DejaVu Sans,Arial,sans-serif" font-size="17" fill="#5c6a79" font-weight="normal">Wersja 2026-09-12 • Bez MIDI IN • Szczegółowa tabela nóżek oraz objaśnienia: hardware/POLACZENIA.md</text>
+</svg>
