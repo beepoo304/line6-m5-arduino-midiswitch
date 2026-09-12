@@ -1,0 +1,76 @@
+#include <SevenSeg.h> // zdefiniowanie bibliotek MIDI i sevenseg dla wyświetlacza
+byte progChange = 0xC0; // PC midi command
+byte contChange = 0xB0; // CC Midi command
+byte contNum = 11; // CC# for on/off
+byte contOn = 70; // CC# value for FX on
+byte contOff = 0; // CC# value for FX off
+int presets[] {0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xB, 0xC, 0xD, 0xE, 0xF};
+int i=0;
+
+SevenSeg disp(2, 3, 4, 5, 6, 7, 8);// piny Arduino dla wyświetlacza, dwie liczby podwójny siedmio
+//segmentowy po 9 nożek góra i dół
+const int numOfDigits = 2;// ilość liczb wyświetlacza
+int digitPins[numOfDigits] = { 9, 10 };// piny wspólnych anod z wyświetlacza podłączone do arduino
+void fxOn() {
+Serial.write(contChange); //void do włączania efektu
+Serial.write(contNum);
+Serial.write(contOn);
+}
+void fxOff() {
+Serial.write(contChange);//void do wyłączania efekt
+Serial.write(contNum);
+Serial.write(contOff);
+}
+void setup() {
+Serial.begin(31250); // setup serial for MIDI
+pinMode(11, INPUT_PULLUP); //Przycisk 9 jako wejście, przyciski
+pinMode(12, INPUT_PULLUP); //Przycisk 10jako wejście, przycisk
+disp.setDigitPins(numOfDigits, digitPins); //instrukcja biblioteki seven seg
+disp.setTimer(2); //ustawienie Timera2 które pozwala multiplikować wyświetlanei na obu wyswetlaczach
+disp.startTimer(); //uruchomienie timera
+disp.write("on"); //wyświetl "ON" ,że włączony
+delay(1000);
+Serial.write(progChange);//po podłączeniu zasilania zacznij od 1-ki
+Serial.write(0x0);
+fxOn();//status efekt włączony
+delay(25);
+}
+
+
+void loop()
+{
+if (digitalRead(12) == LOW)//Jeśli przycisk wciśnięty, to UP
+{
+i++;fxOn();//zliczaj w górę, efekt zawsze włączony
+if (i > 23)//w line 6m5 są 24 kanały(presety) po 24 ma przejść do pierwszego,
+{
+i = 0; // komendy MIDI sa od 0-23, 0 to kanał 1....itd
+}
+Serial.write(progChange);
+Serial.write(0x0+i);//zmieniaj kanały w przód
+fxOn();//włączony on/off efektu
+delay(250);
+}
+if (digitalRead(11) == LOW)//przyciak DOWN,
+{ //Jeśli przycisk wciśnięty
+i--;
+if (i < 0)// Przewijanie w dół , poniżej jedynki ma wskoczyc kanał 24 czyli komenda 23 MIDI
+{
+i = 23;
+}
+Serial.write(progChange);
+Serial.write(0x0+i);
+fxOn();
+delay(250);
+while ( digitalRead(11)==LOW && digitalRead(12)==LOW)
+{
+Serial.write(contOff);
+fxOff();
+}
+}
+disp.write(i + 1); //wyświetl zmienną i na 7seg double display LED
+delay(25); //poczekaj
+}
+ISR(TIMER2_COMPA_vect){
+disp.interruptAction();//ustawienie z biblioteki 7seg dotyczące ustawień multiplikowania
+}
